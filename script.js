@@ -1,68 +1,109 @@
 //1. creating the arrays of lower, upper, nums, special, empty masterarray
-var lowerArray = ["a", "b", "c"];
-var upperArray = ["A", "B", "C"];
-var numsArray = ["1", "2", "3"];
-var specialCharacter = ["@", "%", "*"];
+var lowerArray = "aqwertyuiopsdfghjklzxcvbnm";
+var upperArray = "QWERTYUIOPASDFGHJKLZXCVBNM";
+var numsArray = "0123456789";
+var specialCharacter = ["@#!$%^&*"];
 var masterArray = [];
 
-console.log(lowerArray);
-console.log(upperArray);
-console.log(numsArray);
-console.log(specialCharacter);
-console.log(masterArray);
+console.log("Lower Array " + lowerArray);
+console.log("Upper Array " + upperArray);
+console.log("Numbers Array " + numsArray);
+console.log("Special Characters " + specialCharacter);
+console.log("Master Array " + masterArray);
+
+//function to prompt user for password options
+
+// function getPasswordOptions();
+
+//variable to store length of password from user input with while loop
+var lengthSelected = true;
+var userLength;
+
+while (lengthSelected) {
+  userLength = prompt(
+    "How long do you want your password? Must be between 8 and 128 characters."
+  );
+  if (userLength > 129 || userLength < 8 || isNaN(userLength)) {
+    alert("Please enter valid input.");
+  } else {
+    lengthSelected = false;
+  }
+}
+console.log("User input length: " + userLength);
 
 // WHEN I click the button to generate a password
 //  prompts for password criteria:
-var lowerArray = prompt("Do you want lower case letters in your password?");
+var userLower = confirm("Do you want lower case letters in your password?");
+var userUpper = confirm("Do you want upper case letters in your password?");
+var userNumbers = confirm("Do you want numbers in your password?");
+var userSpecialC = confirm("Do you want special characters in your password?");
 
-var upperArray = prompt("Do you want upper case letters in your password?");
-var numsArray = prompt("Do you want numbers in your password?");
-var specialCharacter = prompt(
-  "Do you want special characters in your password?"
-);
+console.log("User input lowercase: " + userLower);
+console.log("User input uppercase: " + userUpper);
+console.log("User input numbers: " + userNumbers);
+console.log("User input special characters: " + userSpecialC);
 
 //prompt  length of the password
 // at least 8 characters and no more than 128 characters
-var userLength = prompt(
-  "How long do you want your password? Must be between 8 and 128 characters."
-);
-// prompt lowercase, //boolean
-var userLower = confirm("Do you want lower case?");
+
+console.log("User input for password length: " + userLength);
+
 if (userLower === true) {
-  masterArray.push(userLower);
-  // for (var i = 0; i > lowerArray.length; i++) {
-  // masterarray.push(lowerArray[i]);
-  // }
+  masterArray.push(lowerArray);
 }
 //prompt uppercase, //boolean
-var userUpper = confirm("Do you want upper case?");
 if (userUpper === true) {
-  masterArray.push(userUpper);
-  // for (var i = 0; i < upperArray.length; i++) {
-  //   masterArray.push(upperArray[i]);
-  // }
+  masterArray.push(upperArray);
 }
 //prompt numeric,   //boolean
-var userNumbers = confirm("Do you want any numbers?");
 if (userNumbers === true) {
-  masterArray.push(userNumbers);
+  masterArray.push(numsArray);
 }
 //prompt for special characters  //boolean
-var userSpecialC = confirm("Do you want special characters?");
 if (userSpecialC === true) {
-  masterArray.push(userSpecialC);
+  masterArray.push(specialCharacter);
 }
-// WHEN I answer each prompt
-//2. check each boolean variable and if there is a match push the data to
-//the masterarray
 
-//(later after I finish and get stuff working the i can work on this exception rule) THEN my input should be validated and at least one character type should be selected
+masterArray = masterArray.join("");
+
+// IF ALL 4 VALUES ARE FALSE
+
+// if (
+//   userLower === false &&
+//   userUpper === false &&
+//   userNumbers === false &&
+//   userSpecialC === false
+// ) {
+// }
+
+// generating password
+
+function generatePassword() {
+  var lengthMasterArray = masterArray.length;
+  console.log(lengthMasterArray);
+  var index;
+  var newPassword = [];
+
+  //generate the random
+  for (i = 0; i < userLength; i++) {
+    index = Math.floor(Math.random() * lengthMasterArray);
+    console.log("index " + index);
+    console.log("value " + masterArray[index]);
+
+    newPassword[i] = masterArray[index];
+    console.log("Random password " + newPassword);
+  }
+  return newPassword.join("");
+}
+
 // THEN a password is generated that matches the selected criteria
+
 //3. WHEN the password is generated (creat userpassword)
 //run a forloop based on userinputlength (parseInt())
 // userpassword+=masterArray[Math.random(0+masterArray.length-1)]
 //call randomly data based on the length
 // THEN the password is either displayed in an alert or written to the page
+
 // Assignment Code
 // var generateBtn = document.querySelector("#generate");
 // Write password to the #password input
@@ -110,15 +151,15 @@ if (userSpecialC === true) {
 // generateBtn.addEventListener("click", writePassword);
 
 // // Assignment Code
-// var generateBtn = document.querySelector("#generate");
+var generateBtn = document.querySelector("#generate");
 
 // // Write password to the #password input
-// function writePassword() {
-//   var password = generatePassword();
-//   var passwordText = document.querySelector("#password");
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
 
-//   passwordText.value = password;
-// }
+  passwordText.value = password;
+}
 
 // // Add event listener to generate button
-// generateBtn.addEventListener("click", writePassword)
+generateBtn.addEventListener("click", writePassword);
